@@ -1,0 +1,28 @@
+{
+	"folders": [
+		{
+			"path": "Codeforces"
+		},
+		{
+			"path": "NTHU_OJ"
+		},
+		{
+			"path": "Online_Judge"
+		}
+	],
+	"settings": {
+		"files.associations": {
+			"deque": "cpp",
+			"list": "cpp",
+			"vector": "cpp",
+			"xstring": "cpp",
+			"utility": "cpp",
+			"xiosbase": "cpp",
+			"iostream": "cpp",
+			"istream": "cpp",
+			"queue": "cpp",
+			"ostream": "cpp",
+			"valarray": "cpp"
+		}
+	}
+}
