@@ -42,5 +42,5 @@ ofstream operator<<(ofstream& out, pair<T1, T2> a) { cout << a.F << ' ' << a.S; 
 
 int main()
 {
-    
+    yccc;
 }

@@ -44,59 +44,33 @@ int main()
 {
     yccc;
     
-    int n;
-    cin >> n;
+    int c;
+    cin >> c;
     
-    map<int, int> apr;
-    bool good = true;
-    
-    vec<int> _list(n);
-    for (auto &i : _list)
+    while (c--)
     {
-        cin >> i;
+        int n;
+        cin >> n;
         
-        apr[i]++;
-        
-        if (apr[i] == 2)
-            good = false;
-    }
-    
-    if (good)
-    {
-        cout << 0 << endl;
-        
-        return 0;
-    }
-    
-    int ans = n;
-    
-    for (int i = 0; i < n; i++)
-    {
-        apr.clear();
-        
-        bool good = true;
-        for (int f = 0; f < i; f++)
-        {
-            apr[_list[f]]++;
+        vec<int> _list(n+1);
+        REP1(i, n)
+            cin >> _list[i];
             
-            if (apr[_list[f]] == 2)
-                good = false;
+        vec<int> dp(n+1, 1);
+        
+        for (int i = 1; i <= n; i++)
+        {
+            int tmp = i*2;
+            
+            while (tmp <= n)
+            {
+                if (_list[tmp] > _list[i])
+                    dp[tmp] = max(dp[tmp], dp[i] + 1);
+                    
+                tmp += i;
+            }
         }
         
-        if (!good)
-            continue;
-            
-        int b = n-1;
-        
-        while (!apr[_list[b]])
-        {
-            apr[_list[b]]++;
-            
-            b--;
-        }
-        
-        ans = min(ans, b-i+1);
+        cout << *max_element(al(dp)) << endl;
     }
-    
-    cout << ans << endl;
 }
