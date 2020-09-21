@@ -44,33 +44,30 @@ int main()
 {
     yccc;
     
-    int c;
-    cin >> c;
+    int n, d;
+    cin >> n >> d;
     
-    while (c--)
+    vec<pii> _list(n);
+    for (auto &i : _list)
+        cin >> i.F >> i.S;
+    
+    sort(al(_list));
+    
+    ll sum = 0, tmp = 0, len = 0;
+    int l = 0, r = -1;
+    while (++r < n)
     {
-        int n, x;
-        cin >> n >> x;
+        len = _list[r].F - _list[l].F;
+        tmp += _list[r].S;
         
-        int sum = 0, count = 0;
-        vec<int> _list;
-        REP(i, n)
+        while (len >= d)
         {
-            int tmp;
-            cin >> tmp;
-            
-            if (tmp != x)
-            {
-                sum += tmp - x;
-                count++;
-            }
+            tmp -= _list[l].S;
+            len = _list[r].F - _list[++l].F;
         }
         
-        if (count == 0)
-            cout << 0 << endl;
-        else if (n != count or sum == 0)
-            cout << 1 << endl;
-        else
-            cout << 2 << endl;
+        sum = max(sum, tmp);
     }
+    
+    cout << sum << endl;
 }
