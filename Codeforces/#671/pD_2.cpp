@@ -40,93 +40,55 @@ ll FAC(ll a) { ll res = 1; REP1(i, a) tmod(res, i); return res; }
 template<typename T1, typename T2>
 ofstream operator<<(ofstream& out, pair<T1, T2> a) { cout << a.F << ' ' << a.S; return out; }
 
+bool solve(vec<int>& a, int m)
+{
+    if (a.size() < m*2 + 1)
+        return false;
+    
+    // a.size() - m ~ a.size() - 1.
+    for (int i = 0; i < m; i++)
+    {
+        if (a[i] >= a[a.size() - m - 1 + i] or a[i] >= a[a.size() - m + i])
+            return false;
+    }
+    
+    return true;
+}
+
 int main()
 {
+    yccc;
+    
     int n;
     cin >> n;
     
-    map<int, int> last;
     vec<int> _list(n);
     for (auto &i : _list)
-    {
         cin >> i;
         
-        last[i]++;
-    }
-        
-    vec<int> tmp = _list;
-    sort(al(tmp));
-    tmp.resize(distance(tmp.begin(), unique(al(tmp))));
+    sort(al(_list));
     
-    int count = 0;
-    vec<int> ans;
-    int f = 0, l = tmp.size()-1;
-    for (int i = 0; i < tmp.size(); i++)
+    int l = 0, r = n/2;
+    while (l != r)
     {
-        if (i % 2 == 0)
-            ans.eb(tmp[l--]);
+        int m = (l+r) / 2 + 1;
+        
+        if (solve(_list, m))
+            l = m;
         else
-            ans.eb(tmp[f++]);
+            r = m-1;
     }
     
-    count = (tmp.size()%2 ? tmp.size()/2 : tmp.size()/2-1);
-    
-    if (ans.size() % 2)
-        reverse(al(ans));
-    
-    int size = last.size();
-    
-    for (auto it = last.begin(); it != last.end(); it++)
-        if (--it->S == 0) size--;
-    
-    if (!size and ans.size() % 2 == 0)
+    cout << l << endl;
+    for (int i = 0; i < l; i++)
     {
-        auto it = prev(last.end()); 
-        while (it->S == 0) it--;
-        
-        ans.eb(it->F);
-        
-        if (!(--it->S)) size--;
-        
-        count++;
+        cout << _list[n-l-1+i] << ' ';
+        cout << _list[i] << ' ';
     }
     
-    while (size >= 2)
-    {
-        auto it = last.begin();
-        while (it->S == 0) it++;
-        
-        ans.eb(it->F);
-        
-        if (!(--it->S)) size--;
-        
-        it = prev(last.end()); 
-        while (it->S == 0) it--;
-        
-        ans.eb(it->F);
-        
-        if (!(--it->S)) size--;
-            
-        count++;
-    }
+    cout << _list[n-1] << ' ';
     
-    if (size)
-    {
-        auto it = last.begin();
-        while (it->S == 0) it++;
-        if (it->F > ans.back())
-            count++;
-        
-        REP(i, it->S)
-            ans.eb(it->F);
-    }
-    
-    if (n == 1 or n == 2)
-        cout << 0 << endl;
-    else
-        cout << count << endl;
-        
-    for (auto i : ans)
-        cout << i << ' ';
+    for (int i = l; i < n-l-1; i++)
+        cout << _list[i] << ' ';
     cout << endl;
 }
