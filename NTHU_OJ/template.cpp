@@ -1,24 +1,23 @@
-#include <iostream>
-using namespace std;
+#include <stdio.h>
+#include <string.h>
 
-int add(int& i, int k)
+int main()
 {
-    i = i + 20;
-    return i + k;
+   int n;
+   char ch[3000];
+
+   scanf("%d %s", &n, ch);
+
+   n = n % 26;
+
+   // ch[0] ~ ch[strlen(ch)-1].
+   for (int i = 0; i < strlen(ch); i++)
+   {
+       if (ch[i] + n > 'z')
+            ch[i] = ch[i] + n - 26;
+        else 
+            ch[i] = ch[i] + n;
+   }
+   
+   printf("%s\n", ch);
 }
-
-int main()  // caller
-{
-    int a, b;
-    a = 10;
-    b = 20;
-    
-    cout << add(a, b) << endl;
-    cout << a << ", " << b << endl;
-}
-
-scanf("%c", &ch)
-ch = getchar();
-
-printf("%c", ch);
-putchar(ch);
