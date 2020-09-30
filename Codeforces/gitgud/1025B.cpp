@@ -38,24 +38,7 @@ ll POW(ll a, ll b) { ll res=1; do { if(b%2) tmod(res,a); tmod(a,a); } while (b>>
 ll FAC(ll a) { ll res = 1; REP1(i, a) tmod(res, i); return res; }
 
 template<typename T1, typename T2>
-ofstream operator<<(ofstream& out, pair<T1, T2> a) { cout << a.F << ' ' << a.S; return out; }
-
-ll solve(vec<ll>& a, int n, int limit)
-{
-    map<int, int> count;
-    for (auto i : a)
-        for (int k = 2; k <= sqrt(i); k++)
-            if (!(i % k))
-                count[k]++;
-                
-    for (auto it = count.begin(); it != count.end(); it++)
-        if (it->F > limit)
-            break;
-        else if (it->S == n)
-            return it->F;
-    
-    return -1;
-}
+ostream& operator<<(ostream& out, pair<T1, T2> a) { cout << a.F << ' ' << a.S; return out; }
 
 int main()
 {
@@ -65,6 +48,10 @@ int main()
     cin >> n;
         
     ll limit = 0;
+    
+    pair<int, ll> test = {1, 4};
+    
+    cout << test;
     vec<ll> _list(n);
     REP(i, n)
     {
@@ -75,6 +62,4 @@ int main()
         
         _list[i] = a*b;
     }
-        
-    cout << solve(_list, n, limit) << endl;
 }

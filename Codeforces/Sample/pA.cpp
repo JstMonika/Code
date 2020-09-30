@@ -38,7 +38,7 @@ ll POW(ll a, ll b) { ll res=1; do { if(b%2) tmod(res,a); tmod(a,a); } while (b>>
 ll FAC(ll a) { ll res = 1; REP1(i, a) tmod(res, i); return res; }
 
 template<typename T1, typename T2>
-ofstream operator<<(ofstream& out, pair<T1, T2> a) { cout << a.F << ' ' << a.S; return out; }
+ostream& operator<<(ostream& out, pair<T1, T2> a) { cout << a.F << ' ' << a.S; return out; }
 
 int main()
 {
