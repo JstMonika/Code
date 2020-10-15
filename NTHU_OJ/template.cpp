@@ -1,23 +1,25 @@
-#include <stdio.h>
-#include <string.h>
+#include <bits/stdc++.h>
+using namespace std;
+
+void func(int n, char start, char end)
+{
+    if (n == 0)
+        return;
+    
+    char last = 'A' + 'B' + 'C' - start - end;
+    
+    func(n-1, start, last);
+    cout << "move from " << start << " to " << end << '\n';
+    func(n-1, last, end);
+}
 
 int main()
 {
-   int n;
-   char ch[3000];
-
-   scanf("%d %s", &n, ch);
-
-   n = n % 26;
-
-   // ch[0] ~ ch[strlen(ch)-1].
-   for (int i = 0; i < strlen(ch); i++)
-   {
-       if (ch[i] + n > 'z')
-            ch[i] = ch[i] + n - 26;
-        else 
-            ch[i] = ch[i] + n;
-   }
-   
-   printf("%s\n", ch);
+    // suppose A, B, C.
+    
+    int n;
+    char start, end;
+    cin >> n >> start >> end;
+    
+    func(n, start, end);
 }
