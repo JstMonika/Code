@@ -41,7 +41,62 @@ ll FAC(ll a) { ll res = 1; REP1(i, a) tmod(res, i); return res; }
 template<typename T1, typename T2>
 ostream& operator<<(ostream& out, pair<T1, T2> a) { cout << a.F << ' ' << a.S; return out; }
 
+int cont[100001];
 int main()
 {
     yccc;
+    int n, k;
+    cin >> n >> k;
+    vec<ll> _list(n);
+    double aver = 0;
+    ll sum = 0;
+    
+    for (auto &i : _list)
+    {
+        cin >> i;
+        aver += i;
+    }
+    aver /= k;
+    sort(al(_list));
+    int idx = 0;
+    while (_list[idx] <= aver)
+    {
+        sum += _list[idx] * _list[idx];
+        idx++;
+    }
+    
+    int last = k-n-idx;
+    for (int i = _list.size() - 1; i >= idx; i--)
+    {
+        if (last == 0)
+        {
+            sum += _list[i] * _list[i];
+            continue;
+        }
+        
+        int piece = ceil(1.0 * _list[i] / aver);
+        if (piece < last)
+        {
+            sum += (_list[i] / piece) * (_list[i] / piece) * (piece-1);
+            sum += (_list[i] / piece + _list[i] % piece) * (_list[i] / piece + _list[i] % piece);
+            last -= piece;
+        }
+        else
+        {
+            if (_list[i] % last)
+            {
+                sum += (_list[i] / last) * (_list[i] / last) * (last-1);
+                sum += (_list[i] / last + _list[i] % last) * (_list[i] / last + _list[i] % last);
+                last = 0;
+            }
+            else
+            {
+                sum += (_list[i] / last) * (_list[i] / last) * last;
+                last = 0;
+            }
+            
+        }
+    }
+    
+    cout << sum << endl;
 }

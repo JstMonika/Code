@@ -10,6 +10,7 @@ template<typename T> using Prior = priority_queue<T>;
 template<typename T> using prior = priority_queue<T, vector<T>, greater<T>>;
 
 #define yccc ios_base::sync_with_stdio(false), cin.tie(0)
+#define endl '\n'
 #define al(a) a.begin(),a.end()
 #define F first
 #define S second

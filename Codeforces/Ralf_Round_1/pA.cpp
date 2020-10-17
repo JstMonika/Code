@@ -10,7 +10,6 @@ template<typename T> using Prior = priority_queue<T>;
 template<typename T> using prior = priority_queue<T, vector<T>, greater<T>>;
 
 #define yccc ios_base::sync_with_stdio(false), cin.tie(0)
-#define endl '\n'
 #define al(a) a.begin(),a.end()
 #define F first
 #define S second
@@ -44,4 +43,17 @@ ostream& operator<<(ostream& out, pair<T1, T2> a) { cout << a.F << ' ' << a.S; r
 int main()
 {
     yccc;
+    
+    int c;
+    cin >> c;
+    
+    while (c--)
+    {
+        int x1, x2, y1, y2;
+        cin >> x1 >> y1 >> x2 >> y2;
+        
+        int ans = abs(x2 - x1) + abs(y2 - y1) + (x2 != x1 and y2 != y1 ? 2 : 0);
+        
+        cout << ans << endl;
+    }
 }
