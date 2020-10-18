@@ -16,17 +16,21 @@ int main(){
             B[i][j] = rand()%10;
         }
     }
-
-    t1 = clock();
-    matrixmul(A, B, C);
-    t2 = clock();
-    matrixmul_block2(A, B, D, 4, 8);
-    t3 = clock();
-
-    d1 = ((double) (t2 - t1)) / CLOCKS_PER_SEC;
-    d2 = ((double) (t3 - t2)) / CLOCKS_PER_SEC;
-
-    printf("%f, %f, diff= %f\n", d1, d2, verify(C, D));
+    double _list[7][7];
+    
+    for (int i = 0; i < 7; i++)
+        for (int k = 0; k < 7; k++)
+        {
+            t1 = clock();
+            matrixmul_block2(A, B, C, (1<<(i+2)), (1<<(k+2)));
+            t2 = clock();
+            
+            _list[i][k] = 1.0 * (t2-t1) / CLOCKS_PER_SEC;
+        }
+    
+    for (int i = 0; i < 7; i++)
+        for (int k = 0; k < 7; k++)
+            printf("%f%c", _list[i][k], "\t\n"[k == 6]);
 
     return 0;
 }

@@ -62,7 +62,7 @@ void matrixmul_block2(float A[][SIZE], float B[][SIZE], float C[][SIZE], int p, 
             for (int bj = 0; bj < SIZE; bj += q)
                 for (int i = bi; i < bi + p; i++)
                     for (int k = bk; k < bk + q; k++)
-                        for (int j = bj; j < bj + q; bj++)
+                        for (int j = bj; j < bj + q; j++)
                             C[i][k] += A[i][j] * B[j][k];
         }
 }
