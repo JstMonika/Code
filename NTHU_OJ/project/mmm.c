@@ -20,7 +20,7 @@ int main(){
     t1 = clock();
     matrixmul(A, B, C);
     t2 = clock();
-    matrixmul_block(A, B, D, 4);
+    matrixmul_block2(A, B, D, 4, 8);
     t3 = clock();
 
     d1 = ((double) (t2 - t1)) / CLOCKS_PER_SEC;

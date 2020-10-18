@@ -21,24 +21,16 @@ void matrixmul(float A[][SIZE], float B[][SIZE], float C[][SIZE]){
 // compute C = A*B using blocking
 void matrixmul_block(float A[][SIZE], float B[][SIZE], float C[][SIZE], int bSize){
     int i, j, k;
-    // i: row index for block
-    // j: col index for block
-    // k: iteration index
 
     int bi, bj, bk;
-    // bi: block row index for C
-    // bj: block col index for C
-    // bk: block index
 
     for (bi=0; bi<SIZE; bi+=bSize){
         for (bj=0; bj<SIZE; bj+=bSize){
-            // clean C's value
             for (i=bi; i<bi+bSize; i++){
                 for (j=bj; j<bj+bSize; j++){
                     C[i][j] = 0.0;
                 }
             }
-            // compute the block submatrix C[bi][bj]
             for (bk=0; bk<SIZE; bk+=bSize){
                 for (i=bi; i<bi+bSize; i++){
                     for (j=bj; j<bj+bSize; j++){
@@ -56,6 +48,23 @@ void matrixmul_block(float A[][SIZE], float B[][SIZE], float C[][SIZE], int bSiz
 // compute C = A*B using blocking
 void matrixmul_block2(float A[][SIZE], float B[][SIZE], float C[][SIZE], int p, int q){
     // your implementation here
+    int i = 0, j = 0, k = 0;
+    
+    int bi = 0, bj = 0, bk = 0;
+    
+    for (int bi = 0; bi < SIZE; bi += p)
+        for (int bk = 0; bk < SIZE; bk += q)
+        {
+            for (int i = bi; i < bi + p; i++)
+                for (int k = bk; k < bk + q; k++)
+                    C[i][k] = 0.0;
+            
+            for (int bj = 0; bj < SIZE; bj += q)
+                for (int i = bi; i < bi + p; i++)
+                    for (int k = bk; k < bk + q; k++)
+                        for (int j = bj; j < bj + q; bj++)
+                            C[i][k] += A[i][j] * B[j][k];
+        }
 }
 
 
