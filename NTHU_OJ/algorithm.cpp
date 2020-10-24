@@ -47,27 +47,21 @@ int main()
     int n;
     cin >> n;
     
-    clock_t start, end;
-    
-    while (n--)
+    for (int i = 0; i < n; i++)
     {
+        if (i)
+            cout << '\n';
+        
         int w, r, c;
         cin >> w >> c >> r;
         idx = 1;
         
-        start = clock();
-        
         puzzle(w-1, 0, 0, r, c);
         
-        end = clock();
-        
-        cout << 1.0 * (end - start) / CLOCKS_PER_SEC << endl;
-        
         mmap[r][c] = -1;
-        /*
+        
         for (int i = 0; i < (1<<w); i++)
             for (int k = 0; k < (1<<w); k++)
-                cout << mmap[i][k] << "\t\n"[k == (1<<w)-1];
-        */
+                cout << mmap[i][k] << " \n"[k == (1<<w)-1];
     }
 }
