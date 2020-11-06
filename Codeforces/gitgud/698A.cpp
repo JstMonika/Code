@@ -52,5 +52,23 @@ int main()
     for (auto &i : _list)
         cin >> i;
     
-    vec< vec<int> > 
+    vec< vec<int> > dp(3, vec<int>(n+1));
+    
+    for (int i = 1; i <= n; i++)
+    {
+        if (_list[i-1] < 2)
+            dp[1][i] = INF;
+        else
+            dp[1][i] = min(dp[0][i-1], dp[2][i-1]);
+            
+        if (!(_list[i-1] % 2))
+            dp[2][i] = INF;
+        else
+            dp[2][i] = min(dp[1][i-1], dp[0][i-1]);
+        
+        
+        dp[0][i] = min(dp[0][i-1], min(dp[1][i-1], dp[2][i-1])) + 1;
+    }
+    
+    cout << min(dp[0][n], min(dp[1][n], dp[2][n])) << endl;
 }
