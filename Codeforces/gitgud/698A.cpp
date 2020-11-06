@@ -44,4 +44,13 @@ ostream& operator<<(ostream& out, pair<T1, T2> a) { cout << a.F << ' ' << a.S; r
 int main()
 {
     yccc;
+    
+    int n;
+    cin >> n;
+    
+    vec<int> _list(n);
+    for (auto &i : _list)
+        cin >> i;
+    
+    vec< vec<int> > 
 }

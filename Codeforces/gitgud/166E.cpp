@@ -44,4 +44,27 @@ ostream& operator<<(ostream& out, pair<T1, T2> a) { cout << a.F << ' ' << a.S; r
 int main()
 {
     yccc;
+    
+    ll dp[4][2];
+    dp[0][1] = dp[1][1] = dp[2][1] = 1;
+    dp[3][1] = 0;
+    
+    int c;
+    cin >> c;
+    
+    for (int i = 0; i < c-1; i++)
+    {
+        for (int k = 0; k < 4; k++)
+            dp[k][0] = dp[k][1];
+        
+        dp[0][1] = dp[1][0] + dp[2][0] + dp[3][0];
+        dp[1][1] = dp[0][0] + dp[2][0] + dp[3][0];
+        dp[2][1] = dp[0][0] + dp[1][0] + dp[3][0];
+        dp[3][1] = dp[0][0] + dp[1][0] + dp[2][0];
+        
+        for (int k = 0; k < 4; k++)
+            pmod(dp[k][1], 0);
+    }
+    
+    cout << dp[3][1] << endl;
 }

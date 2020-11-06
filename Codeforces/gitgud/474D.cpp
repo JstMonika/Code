@@ -44,4 +44,31 @@ ostream& operator<<(ostream& out, pair<T1, T2> a) { cout << a.F << ' ' << a.S; r
 int main()
 {
     yccc;
+    
+    int c, k;
+    cin >> c >> k;
+    
+    ll sum[100001] = {0};
+    
+    for (int i = 1; i <= 100000; i++)
+        if (i <= k)
+            sum[i] = (i == k ? 2 : 1);
+        else
+            pmod(sum[i], sum[i-1] + sum[i-k]);
+            
+    for (int i = 1; i <= 100000; i++)
+        pmod(sum[i], sum[i-1]);
+    
+    while (c--)
+    {
+        int a, b;
+        cin >> a >> b;
+        
+        ll ans = sum[b] - sum[a-1];
+        if (ans < 0)
+            ans += 1e9+7;
+        cout << ans << endl;
+        
+        type
+    }
 }
