@@ -10,6 +10,7 @@ template<typename T> using Prior = priority_queue<T>;
 template<typename T> using prior = priority_queue<T, vector<T>, greater<T>>;
 
 #define yccc ios_base::sync_with_stdio(false), cin.tie(0)
+#define endl '\n'
 #define al(a) a.begin(),a.end()
 #define F first
 #define S second
@@ -47,46 +48,44 @@ int main()
     int n;
     cin >> n;
     
-    set<int> S;
-    
-    int a, b;
-    cin >> a >> b;
-    int x = 2;
-    while (x * x <= a)
-    {
-        if (a % x == 0)
-        S.insert(x);
-        while (a % x == 0) a /= x;
+    vec<int> _list(n);
+    for (auto &i : _list)
+        cin >> i;
         
-        x++;
+    if (n % 2)
+    {
+        cout << "YES\n";
+        cout << n-2 << '\n';
+        
+        for (int i = 0; i < n-2; i += 2)
+            cout << i+1 << ' ' << i+2 << ' ' << i+3 << '\n';
+        
+        for (int i = 0; i < n-3; i += 2)
+            cout << i+1 << ' ' << i+2 << ' ' << n << '\n';
     }
-    if (a > 1) S.insert(a);
-    
-    x = 2;
-    while (x * x <= b)
+    else
     {
-        if (b % x == 0)
-        S.insert(x);
-        while (b % x == 0) b /= x;
-        
-        x++;
-    }
-    if (b > 1) S.insert(b);
-    
-    for (int i = 1; i < n; i++)
-    {
-        cin >> a >> b;
-        vector<int> D;
-        
-        for (auto i : S) if (a % i and b % i) D.eb(i);
-        for (auto i : D) S.erase( S.find(i) );
-        
-        if  (S.empty())
+        int tmp = 0, idx = -1;
+        for (int i = 0; i < n; i++)
         {
-            cout << -1;
-            return 0;
+            tmp ^= _list[i];
+            if (_list[i])
+                idx = i;
+        }
+        
+        if (tmp != 0)
+            cout << "NO\n";
+        else
+        {
+            cout << "YES\n";
+            cout << n-2 << '\n';
+        
+            for (int i = 0; i < n-2; i += 2)
+                cout << i+1 << ' ' << i+2 << ' ' << i+3 << '\n';
+        
+            for (int i = 0; i < n-3; i += 2)
+                cout << i+1 << ' ' << i+2 << ' ' << n << '\n';
+                     
         }
     }
-    
-    cout << *S.begin();
 }

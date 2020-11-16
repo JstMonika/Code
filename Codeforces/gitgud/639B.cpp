@@ -10,6 +10,7 @@ template<typename T> using Prior = priority_queue<T>;
 template<typename T> using prior = priority_queue<T, vector<T>, greater<T>>;
 
 #define yccc ios_base::sync_with_stdio(false), cin.tie(0)
+#define endl '\n'
 #define al(a) a.begin(),a.end()
 #define F first
 #define S second
@@ -44,49 +45,28 @@ int main()
 {
     yccc;
     
-    int n;
-    cin >> n;
+    int n, d, t;
+    cin >> n >> d >> t;
     
-    set<int> S;
-    
-    int a, b;
-    cin >> a >> b;
-    int x = 2;
-    while (x * x <= a)
+    if (d > n or t < (d+1)/2 or t > d)
     {
-        if (a % x == 0)
-        S.insert(x);
-        while (a % x == 0) a /= x;
-        
-        x++;
-    }
-    if (a > 1) S.insert(a);
-    
-    x = 2;
-    while (x * x <= b)
-    {
-        if (b % x == 0)
-        S.insert(x);
-        while (b % x == 0) b /= x;
-        
-        x++;
-    }
-    if (b > 1) S.insert(b);
-    
-    for (int i = 1; i < n; i++)
-    {
-        cin >> a >> b;
-        vector<int> D;
-        
-        for (auto i : S) if (a % i and b % i) D.eb(i);
-        for (auto i : D) S.erase( S.find(i) );
-        
-        if  (S.empty())
-        {
-            cout << -1;
-            return 0;
-        }
+        cout << -1;
+        return 0;
     }
     
-    cout << *S.begin();
+    int i;
+    for (i = 1; i <= t; i++)
+        cout << i << ' ' << i+1 << endl;
+    
+    int k = 0;
+    for (; k < d-t; k++, i++)
+        if (!k)
+            cout << 1 << ' ' << i+1 << endl;
+        else
+            cout << i << ' ' << i+1 << endl;
+         
+    i++;
+        
+    for (int m = 0; m < n - d - 1; m++)
+        cout << 2 << ' ' << i++ << endl;
 }
