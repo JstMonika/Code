@@ -48,25 +48,28 @@ int main()
     int n, d, t;
     cin >> n >> d >> t;
     
-    if (d > n or t < (d+1)/2 or t > d)
-    {
+    if ((d == 1 and n != 2) or t < (d + 1)/2)
         cout << -1;
-        return 0;
+    else
+    {
+        int tmp = 1, count = 2;
+        for (int i = 0; i < t; i++)
+        {
+            cout << tmp << ' ' << count << endl;
+            tmp = count;
+            count++;
+        }
+        
+        tmp = 1;
+        for (int i = 0; i < d-t; i++)
+        {
+            cout << tmp << ' ' << count << endl;
+            tmp = count;
+            count++;
+        }
+        
+        for (; count <= n; count++)
+            cout << (t == d ? 2 : 1) << ' ' << count << endl;
     }
     
-    int i;
-    for (i = 1; i <= t; i++)
-        cout << i << ' ' << i+1 << endl;
-    
-    int k = 0;
-    for (; k < d-t; k++, i++)
-        if (!k)
-            cout << 1 << ' ' << i+1 << endl;
-        else
-            cout << i << ' ' << i+1 << endl;
-         
-    i++;
-        
-    for (int m = 0; m < n - d - 1; m++)
-        cout << 2 << ' ' << i++ << endl;
 }
