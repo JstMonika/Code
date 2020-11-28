@@ -1,6 +1,11 @@
-Now doing 3
-Now doing 5
-Now doing 1
-Now doing 7
-Yes
-No
+0
+0
+1
+6
+1073741823
+765237384630454013
+42
+42
+42
+42
+42

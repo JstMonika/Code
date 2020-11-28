@@ -66,6 +66,7 @@ module Traffic_Light_Controller (clk, rst_n, lr_has_car, hw_light, lr_light);
                 next_state = S0;
                 next_count = 6'b0;
             end 
+        endcase
     end
     
 endmodule
