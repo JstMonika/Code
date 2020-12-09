@@ -52,51 +52,26 @@ int main()
     {
         int n;
         cin >> n;
+        map<int, int> _list;
         
-        vec< set<int> > _list(n+1);
+        int mx = -1, count = 0;
         
         REP(i, n)
         {
-            int a, b;
-            cin >> a >> b;
+            int tmp;
+            cin >> tmp;
             
-            _list[a].insert(b);
-            _list[b].insert(a);
+            _list[tmp]++;
+            
+            if (_list[tmp] > mx)
+            {
+                mx = _list[tmp];
+                count = 1;
+            }
+            else if (_list[tmp] == mx)
+                count++;
         }
-        
-        queue<int> leaf;
-        REP1(i, n)
-            if (_list[i].size() == 1)
-                leaf.emplace(i);
-        
-        vec<int> tree_size(n+1, 1);    
-        while (leaf.size())
-        {
-            int leaf_n = leaf.front();
-            leaf.pop();
-            
-            int parent = *_list[leaf_n].begin();
-            
-            tree_size[parent] += tree_size[leaf_n];
-            tree_size[leaf_n] = 0;
-            
-            _list[parent].erase(leaf_n);
-            
-            if (_list[parent].size() == 1)
-                leaf.emplace(parent);
-        }
-        
-        ll sum = 0;
-        REP1(i, n)
-        {
-            if (tree_size[i] == 0)
-                continue;
-                
-            sum += 1LL * tree_size[i] * (tree_size[i] - 1) / 2;
-            
-            sum += 1LL * tree_size[i] * (n - tree_size[i]);
-        }
-        
-        cout << sum << endl;
+        cout << mx << ' ' << count << endl;
+        cout << (n - count) / (count - 1) - 1 << endl;
     }
 }

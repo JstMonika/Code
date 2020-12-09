@@ -10,7 +10,6 @@ template<typename T> using Prior = priority_queue<T>;
 template<typename T> using prior = priority_queue<T, vector<T>, greater<T>>;
 
 #define yccc ios_base::sync_with_stdio(false), cin.tie(0)
-#define endl '\n'
 #define al(a) a.begin(),a.end()
 #define F first
 #define S second
@@ -39,64 +38,34 @@ ll POW(ll a, ll b) { ll res=1; do { if(b%2) tmod(res,a); tmod(a,a); } while (b>>
 ll FAC(ll a) { ll res = 1; REP1(i, a) tmod(res, i); return res; }
 
 template<typename T1, typename T2>
-ostream& operator<<(ostream& out, pair<T1, T2> a) { cout << a.F << ' ' << a.S; return out; }
+ofstream operator<<(ofstream& out, pair<T1, T2> a) { cout << a.F << ' ' << a.S; return out; }
 
 int main()
 {
     yccc;
     
-    int c;
-    cin >> c;
+    int n;
     
-    while (c--)
+    while (cin >> n)
     {
-        int n;
-        cin >> n;
+        vec< pair<int, int> > _list(n);
+        vec< vec<double> > mat(n, vec<int>(n));
         
-        vec< set<int> > _list(n+1);
-        
+        for (auto &i : _list)
+            cin >> i.F >> i.S;
+            
         REP(i, n)
-        {
-            int a, b;
-            cin >> a >> b;
-            
-            _list[a].insert(b);
-            _list[b].insert(a);
-        }
-        
-        queue<int> leaf;
-        REP1(i, n)
-            if (_list[i].size() == 1)
-                leaf.emplace(i);
-        
-        vec<int> tree_size(n+1, 1);    
-        while (leaf.size())
-        {
-            int leaf_n = leaf.front();
-            leaf.pop();
-            
-            int parent = *_list[leaf_n].begin();
-            
-            tree_size[parent] += tree_size[leaf_n];
-            tree_size[leaf_n] = 0;
-            
-            _list[parent].erase(leaf_n);
-            
-            if (_list[parent].size() == 1)
-                leaf.emplace(parent);
-        }
-        
-        ll sum = 0;
-        REP1(i, n)
-        {
-            if (tree_size[i] == 0)
-                continue;
+            REP(k, i)
+            {
+                int x_dis = abs(_list[i].F - _list[k].F);
+                int y_dis = abs(_list[i].S - _list[k].S);
                 
-            sum += 1LL * tree_size[i] * (tree_size[i] - 1) / 2;
+                x_dis *= x_dis;
+                y_dis *= y_dis;
+                
+                mat[i][k] = mat[k][i] = sqrt(1.0 * (x_dis + y_dis));
+            }
             
-            sum += 1LL * tree_size[i] * (n - tree_size[i]);
-        }
         
-        cout << sum << endl;
     }
 }
