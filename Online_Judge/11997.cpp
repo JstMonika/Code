@@ -45,34 +45,35 @@ int main()
 {
     yccc;
     
-    int c;
-    cin >> c;
-    
-    while (c--)
+    int n;
+
+    while (cin >> n)
     {
-        int n;
-        cin >> n;
+        vec<int> ans(n);
         
-        map<ll, ll> mapp;
-        
-        ll mx = -1, count = 0;
-        REP(i, n)
+        for (auto &i : ans)
+            cin >> i;
+            
+        REP(i, n-1)
         {
-            ll tmp;
-            cin >> tmp;
+            vec<int> tmp;
             
-            mapp[tmp]++;
-            
-            
-            if (mx == mapp[tmp])
-                count++;
-            else if (mx < mapp[tmp])
+            REP(k, n)
             {
-                mx = mapp[tmp];
-                count = 1;
+                int t;
+                cin >> t;
+                
+                for (auto m : ans)
+                    tmp.eb(m + t);
             }
+            
+            sort(al(tmp));
+            tmp.resize(n);
+            
+            ans = tmp;
         }
         
-        cout << (n - count) / (mx - 1) - 1 << endl;
+        REP(i, n)
+            cout << ans[i] << " \n"[i == n-1];
     }
 }

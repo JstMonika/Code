@@ -1,24 +1,31 @@
-`timescale 1ns/1ps
+always @(posedge clk) begin
+    if (!rst_n)
+        state <= IDLE;
+        result <= 1'b1;
+    else
+        state <= next_state;
+        result <= next_result;
+end
 
-module M1 (clk, in, out);
-    input clk, in;
-    output out;
+wire out = (state == 3rd) && result;
+
+always @(*) begin
     
-    reg next_out;
-    reg [2:0] count, next_count;
-    reg trigger, next_trigger;
-    
-    always @(posedge clk) begin
-        out <= next_out;
-        count <= next_count;
-        trigger <= next_trigger;
-    end
-    
-    always @(*) begin
-        
-        next_trigger = in;
-        next_out = (trigger || (count == 3'd3) ? ~out : out);
-        next_count = (count == 3'd3 || trigger ? 3'd0 : count + 3'd1);
-        
-    end
-endmodule
+    case (state)
+        IDLE: begin
+            next_state = 1st;
+            next_result = in & result;  // detect 1.
+        end
+        1st : begin
+            next_state = 2nd;
+            next_result = ~in & result; // detect 0.
+        end
+        2nd : begin
+            next_state = 3rd;
+            next_result = ~in & result; // detect 0.
+        end
+        3rd : begin
+            next_state = IDLE;
+            next_result = ~in & result; // detect 0.
+        end
+end
