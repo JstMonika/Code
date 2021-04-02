@@ -1,52 +1,62 @@
-#include<bits/stdc++.h>
+#include <bits/stdc++.h>
 using namespace std;
-typedef long long int ll;
-ll num[10000005]={};
-ll tmp[10000005]={};
-ll ans;
 
-void mergesort(ll len,ll *arr)
+class point
 {
-	
-	if(len<=1) return;
-	
-	ll leftlen = len/2;
-	ll rightlen = len-leftlen;
-	ll *leftarr = arr;
-	ll *rightarr = arr+leftlen;
-	mergesort(leftlen,leftarr);
-	mergesort(rightlen,rightarr);
-	
-	ll l = 0, r = 0, tmplen = 0, lf = 0;
-	while(l<leftlen && r<rightlen)
-	{
-		if(leftarr[l] > rightarr[r])
+	public:
+		double x, y;
+		double* ptr;
+	public:
+		point(double, double); // TODO: constructor.
+		
+		point()
 		{
-			while (lf != leftlen && leftarr[lf] <= rightarr[r] * 2) lf++;
-			ans += leftlen - lf;
-			
-			tmp[tmplen++] = rightarr[r++];
-		}
-		else 
-			tmp[tmplen++] = leftarr[l++];
-	}
-	
-	while(l<leftlen) tmp[tmplen++] = leftarr[l++];
-	while(r<rightlen) tmp[tmplen++] = rightarr[r++];
-	for(int i=0;i<tmplen;i++) arr[i] = tmp[i];
+			x = 0;
+			y = 1;
+		};
+		
+		friend ostream& operator<<(ostream&, point);
+		friend double operator+(point, point);
+		point add(point); // function.
+};
+
+double operator+(point a, point b)
+{
+	return 10;
 }
+
+ostream& operator<<(ostream& os, point src)
+{
+	os << "[" << src.x << ", " << src.y << "]\n";
+	
+	return os;
+}
+
+point::point(double a, double b)
+{
+	x = a+b;
+	y = a-b;
+}
+
 int main()
 {
+	/*
+	class -> object
+	type -> variable
+	int -> int a = 5;
 	
-	ll n,op;
-	while(~scanf("%lld %lld",&n,&op))
-	{
-		ans = 0;
-		for(int i=0;i<n;i++)
-		scanf("%lld",&num[i]);
-		mergesort(n,num);
-		if(op==0) printf("%lld\n",ans);
-		else printf("%lld\n",num[n-op]);
-	}
-
+	int a = 5;
+	int b = 10;
+	
+	point a;
+	
+	*/
+	point a(2, 3);
+	cout << a.x << ' ' << a.y << endl;
+	point b;
+	cout << b.x << ' ' << b.y << endl;
+	
+	// a.add(b);
+	cout << a + b;
+	cout << a;
 }

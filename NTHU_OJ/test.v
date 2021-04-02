@@ -1,31 +1,49 @@
-always @(posedge clk) begin
-    if (!rst_n)
-        state <= IDLE;
-        result <= 1'b1;
-    else
-        state <= next_state;
-        result <= next_result;
-end
+module machine(clk, rst, in, out, state);
+    input clk, rst;
+    input [1:0] in;
+    output out;
+    output [1:0] state;
 
-wire out = (state == 3rd) && result;
-
-always @(*) begin
+    parameter S0 = 2'd0;
+    parameter S1 = 2'd1;
+    parameter S2 = 2'd2;
+    parameter S3 = 2'd3;
     
-    case (state)
-        IDLE: begin
-            next_state = 1st;
-            next_result = in & result;  // detect 1.
-        end
-        1st : begin
-            next_state = 2nd;
-            next_result = ~in & result; // detect 0.
-        end
-        2nd : begin
-            next_state = 3rd;
-            next_result = ~in & result; // detect 0.
-        end
-        3rd : begin
-            next_state = IDLE;
-            next_result = ~in & result; // detect 0.
-        end
-end
+    reg [1:0] state, next_state;
+    
+    always @(posedge clk) begin
+        
+        if (!rst)
+            state <= 2'b0;
+        else
+            state <= next_state;
+            
+    end
+    
+    assign out = in;
+    
+    wire go_next;
+    nand and1(go_next, in[0], in[1]);
+    always @(*) begin
+        
+        case (state)
+            S0: begin
+                next_state = (in[0] | in[1] ? S1 : S0);
+            end
+            
+            S1: begin
+                
+            end
+            
+            S2: begin
+                
+            end
+            
+            S3: begin
+                
+            end
+            
+        endcase
+    end
+    
+endmodule
